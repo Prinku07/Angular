@@ -1,0 +1,130 @@
+<div class="container">
+
+  <div class="row" style="margin-top: 50px;" >
+    <div class="col-lg-4">
+
+        <img src="{{userData.Image}}" style="height: 200px; width: 220px;">
+
+        <input type="file"
+        style="display: none;"
+        accept="image/*"
+        class="form-control"
+        #fileUploader
+        formControlName="Image"
+        id="imageUrl"
+        class="image-responsive"
+        (change)="showPreview($event)">
+
+      <br>
+      <button  type="button" class="btn btn-primary" label="Edit Photo" style="margin-right: 30px;" (click)="fileUploader.click()">Edit Photo</button>
+      <button  type="button" class="btn btn-primary" label="Edit Profile" (click)="openModal()">Edit Profile</button>
+    </div>
+
+
+<div class="col-lg-8" >
+     <div style="margin-top: 80px;">
+    <P>I'm {{userData.FirstName}} {{userData.LastName}}
+      and I am above {{userData.Age}} years.
+     <p> you can send your emails to {{userData.Email}}.
+      I live in the state of {{userData.State}}.
+        <p *ngIf=userData.Subscribe>Please send me newsletters</p>
+       <p> Please reach out to me on my phone number.</p>
+
+  </div>
+  </div>
+</div>
+
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Register</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+
+          <form [formGroup]="registrationFrom">
+          <div class="row">
+                  <div class="col">
+                    <input type="text" class="form-control" placeholder="First name" formControlName="FirstName">
+                  </div>
+                  <div class="col">
+                    <input type="text" class="form-control" placeholder="Last name" formControlName="LastName">
+                  </div>
+            </div>
+                <br>
+                <div class="form-group">
+
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" formControlName="Email">
+
+                  </div>
+                  <br>
+                  <div class="form-group">
+
+                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Phone Number" formControlName="Phone">
+                  </div>
+
+                  <br>
+                  <div class="form-group">
+                    <ngx-slider [options]="options" id="formGroupExampleInput" formControlName="Age"></ngx-slider>
+
+                  </div>
+                  <br>
+                  <select class="form-select" aria-label="Default select example" formControlName="Country">
+                    <option value="" disabled selected>Country</option>
+                    <option *ngFor="let
+                    count of Contries"
+                    value="{{count.id}}">
+                    {{count.name}}
+                   </option>
+                  </select>
+                  <br>
+                  <select class="form-select" aria-label="Default select example" formControlName="State">
+                    <option value="" selected disabled>State</option>
+                    <option *ngFor="let states of
+                    state">{{states.name}}
+                   </option>
+                  </select>
+                  <br>
+                  <br>
+                  <div class="form-group">
+                  <p-chips formControlName="tags" [style]="{'minWidth': '28rem'}"> </p-chips>
+                  </div>
+                  <br>
+
+                  <div class="form-group">
+                    <p-cascadeSelect
+                    [options]="Address"
+                    optionLabel="cname"
+                    optionGroupLabel="name"
+                    [optionGroupChildren]="['Add']"
+                    formControlName="address"
+                    placeholder="Address"
+                    id="address"
+                    [style]="{'minWidth': '18rem'}" >
+                  </p-cascadeSelect>
+                </div>
+                  <br>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" formControlName="Subscribe">
+                    <label class="form-check-label" for="flexCheckDefault">
+                    Subscribe to our Newsletter
+                    </label>
+                  </div>
+
+              </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"  (click)="closeModal()">cancel</button>
+          <button type="button" class="btn btn-primary" (click)="formSubmit()">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
